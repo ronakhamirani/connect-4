@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Connect Four - 4 in a Row</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <canvas id="confetti-canvas"></canvas>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="game-header">
+      <div class="logo">
+        <span class="logo-icon">🔴🟡</span>
+        <h1>Connect<span class="highlight">4</span></h1>
+      </div>
+      <div class="header-controls">
+        <button id="sound-btn" class="icon-btn" title="Toggle Sound" aria-label="Toggle Sound">
+          <span id="sound-icon">🔊</span>
+        </button>
+        <button id="mode-btn" class="secondary-btn">
+          ⚙️ <span id="current-mode-label">VS AI (Medium)</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Scoreboard -->
+    <section class="scoreboard">
+      <div class="score-card player1-card active" id="p1-card">
+        <div class="player-avatar red-avatar"></div>
+        <div class="player-info">
+          <span class="player-name" id="p1-name">Player 1</span>
+          <span class="score-value" id="p1-score">0</span>
+        </div>
+      </div>
+
+      <div class="vs-badge">VS</div>
+
+      <div class="score-card player2-card" id="p2-card">
+        <div class="player-avatar yellow-avatar"></div>
+        <div class="player-info">
+          <span class="player-name" id="p2-name">AI Bot</span>
+          <span class="score-value" id="p2-score">0</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Game Status Bar -->
+    <div class="status-bar">
+      <div class="status-indicator" id="status-indicator">
+        <span class="status-disc red-disc"></span>
+        <span id="status-text">Player 1's Turn</span>
+      </div>
+    </div>
+
+    <!-- Main Game Board Container -->
+    <main class="board-wrapper">
+      <!-- Top Hover Column Disc Preview -->
+      <div class="column-preview-row" id="preview-row">
+        <div class="preview-slot" data-col="0"><div class="ghost-disc"></div></div>
+        <div class="preview-slot" data-col="1"><div class="ghost-disc"></div></div>
+        <div class="preview-slot" data-col="2"><div class="ghost-disc"></div></div>
+        <div class="preview-slot" data-col="3"><div class="ghost-disc"></div></div>
+        <div class="preview-slot" data-col="4"><div class="ghost-disc"></div></div>
+        <div class="preview-slot" data-col="5"><div class="ghost-disc"></div></div>
+        <div class="preview-slot" data-col="6"><div class="ghost-disc"></div></div>
+      </div>
+
+      <!-- 7x6 Board Grid -->
+      <div class="board" id="board">
+        <!-- Rendered via JS dynamically or columns -->
+      </div>
+    </main>
+
+    <!-- Footer Controls -->
+    <footer class="game-controls">
+      <button id="undo-btn" class="action-btn" title="Undo last move">
+        ↩️ Undo
+      </button>
+      <button id="reset-btn" class="action-btn primary" title="Restart match">
+        🔄 Restart Game
+      </button>
+      <button id="clear-score-btn" class="action-btn danger" title="Reset Scores">
+        🗑️ Reset Score
+      </button>
+    </footer>
+  </div>
+
+  <!-- Settings Modal -->
+  <div class="modal-overlay" id="settings-modal">
+    <div class="modal-content">
+      <h2>Game Mode & Difficulty</h2>
+
+      <div class="mode-options">
+        <label class="radio-card">
+          <input type="radio" name="gameMode" value="pvp" />
+          <div class="radio-body">
+            <span class="radio-title">👥 Pass & Play (2 Players)</span>
+            <span class="radio-desc">Play locally with a friend on the same device.</span>
+          </div>
+        </label>
+
+        <label class="radio-card">
+          <input type="radio" name="gameMode" value="ai-easy" />
+          <div class="radio-body">
+            <span class="radio-title">🤖 VS AI - Easy</span>
+            <span class="radio-desc">Casual play with casual random moves.</span>
+          </div>
+        </label>
+
+        <label class="radio-card">
+          <input type="radio" name="gameMode" value="ai-medium" checked />
+          <div class="radio-body">
+            <span class="radio-title">🤖 VS AI - Medium</span>
+            <span class="radio-desc">Smart blocks and opportunistic offense.</span>
+          </div>
+        </label>
+
+        <label class="radio-card">
+          <input type="radio" name="gameMode" value="ai-hard" />
+          <div class="radio-body">
+            <span class="radio-title">🧠 VS AI - Hard</span>
+            <span class="radio-desc">Unbeatable Minimax AI looking multiple turns ahead.</span>
+          </div>
+        </label>
+      </div>
+
+      <div class="modal-actions">
+        <button id="save-settings-btn" class="action-btn primary full-width">Apply & Start Game</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Victory Overlay Modal -->
+  <div class="modal-overlay" id="victory-modal">
+    <div class="modal-content victory-content">
+      <div class="trophy-icon">🏆</div>
+      <h2 id="victory-title">Red Wins!</h2>
+      <p id="victory-subtitle">A brilliant 4-in-a-row connection!</p>
+
+      <div class="victory-actions">
+        <button id="play-again-btn" class="action-btn primary full-width">Play Again</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
